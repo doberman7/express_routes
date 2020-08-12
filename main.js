@@ -10,10 +10,25 @@ app.get("/items/:vegetable", (req, res) => {
 });
 
 app.listen(port, () => {
-  chalkAnimation.radar(`The Express.js server has started and is listening  on port number: ${port}`)
+  chalkAnimation.rainbow(`The Express.js server has started and is listening  on port number: ${port}`)
 });
-//next is the middleware funciton
+// //next is the middleware funciton
 app.use((req, res, next) => {
-  console.log(`request made to: ${req.url}`);
+  chalkAnimation.radar(`request made to: ${req.url}`);
+  console.log(req.query)
   next();
+});
+
+
+app.use(
+  express.urlencoded({
+    extended: false
+  })
+);//tell express to parse URL encoded data
+app.use(express.json());
+
+app.post("/", (req, res) => {//create new post route for home page
+  console.log(req.body);//log request body
+  console.log(req.query);
+  res.send("POST Successful!");
 });
